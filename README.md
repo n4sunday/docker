@@ -3,55 +3,55 @@
 
 ## 🚀 Basic Command
 
-##### Create and Running a Container from as Image
+#### Create and Running a Container from as Image
 
 ```sh
 docker run <image name>
 ```
 
-##### List all running containers
+#### List all running containers
 
 ```sh
 docker ps
 ```
 
-##### Create a Container
+#### Create a Container
 
 ```sh
 docker create <image name>
 ```
 
-##### Start a Container
+#### Start a Container
 
 ```sh
 docker start <container id>
 ```
 
-##### Stop All
+#### Stop All
 
 ```sh
 docker system prune
 ```
 
-##### Get logs from a container
+#### Get logs from a container
 
 ```sh
 docker logs <container id>
 ```
 
-##### Stop container
+#### Stop container
 
 ```sh
 docker stop <container id>
 ```
 
-##### Kill container
+#### Kill container
 
 ```sh
 docker kill <container id>
 ```
 
-##### Execute an additional command in a container
+#### Execute an additional command in a container
 
 ```sh
 docker exec -it <container id> <command>
@@ -68,7 +68,7 @@ Command
 
 ## 🚀 Building and Custom Image
 
-##### Basic Build
+#### Basic Build
 
 📄 Dockerfile
 
@@ -90,7 +90,7 @@ docker build .
 docker run <image id>
 ```
 
-###### Tagging an Image
+##### Tagging an Image
 
 ```sh
 docker build -t n4sunday/redis:latest .
@@ -101,7 +101,7 @@ docker build -t <your docker id>/<repo | project name>:<version> .
 
 ## 🚀 Making Real Project with Docker
 
-##### Basic Node Project
+#### Basic Node Project
 
 🗃️ Structure
 
