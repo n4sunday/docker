@@ -1,8 +1,7 @@
-## 🐳 Docker
+# 🐳 Docker
 
----
 
-#### 🚀 Basic Command
+## 🚀 Basic Command
 
 ##### Create and Running a Container from as Image
 
@@ -67,7 +66,7 @@ Command
 
 ---
 
-#### 🚀 Building and Custom Image
+## 🚀 Building and Custom Image
 
 ##### Basic Build
 
@@ -100,7 +99,7 @@ docker build -t <your docker id>/<repo | project name>:<version> .
 
 ---
 
-#### 🚀 Making Real Project with Docker
+## 🚀 Making Real Project with Docker
 
 ##### Basic Node Project
 
