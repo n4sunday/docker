@@ -1,6 +1,5 @@
 # 🐳 Docker
 
-
 ## 🚀 Basic Command
 
 #### Create and Running a Container from as Image
@@ -132,11 +131,75 @@ app.listen(3000, () => {
 
 ```Dockerfile
 # Specify a base image
-FROM alpine
+FROM node:alpine
 
 # Install some depenendencies
 RUN npm install
 
 # Default command
+CMD ["npm","start"]
+
+```
+
+| Command |                            Description                             |                  Description                  |
+| :-----: | :----------------------------------------------------------------: | :-------------------------------------------: |
+|  COPY   |                                 ./                                 |                      ./                       |
+|         | Path to folder to copy on `your machine` relative to build context | Place to copy stuff to inside `the container` |
+
+update 📄 **`Dockerfile`**
+
+```Dockerfile
+# Specify a base image
+FROM node:alpine
+
+# Install some depenendencies
+COPY ./ ./
+RUN npm install
+
+# Default command
+CMD ["npm","start"]
+
+```
+
+#### 🔥 Container Port Mapping
+
+docker run -p `<incoming request port>`:`<port inside container>` `<image id>`
+
+```sh
+docker run -p 3000:3000 <image id>
+```
+
+#### Working Directory
+
+📄 **`Dockerfile`**
+
+```Dockerfile
+# Specify a base image
+FROM node:alpine
+
+WORKDIR /usr/app
+
+# Install some depenendencies
+COPY ./ ./
+RUN npm install
+
+# Default command
+CMD ["npm","start"]
+```
+
+#### 🔥 Minimizing Cache Busting and Rebuild
+
+📄 **`Dockerfile`**
+
+```Dockerfile
+FROM node:alpine
+
+WORKDIR /usr/app
+
+COPY ./package.json ./
+RUN npm install
+# ----- cache -----
+COPY ./ ./
+
 CMD ["npm","start"]
 ```
