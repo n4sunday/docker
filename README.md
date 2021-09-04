@@ -70,7 +70,7 @@ Command
 
 #### Basic Build
 
-📄 Dockerfile
+📄 **`Dockerfile`**
 
 ```Dockerfile
 # Use an exising docker image as a base
@@ -112,7 +112,7 @@ project
   └── Dockerfile
 ```
 
-📄 index.js
+📄 **`index.js`**
 
 ```js
 const express = require("express");
@@ -128,7 +128,7 @@ app.listen(3000, () => {
 });
 ```
 
-📄 Dockerfile
+📄 **`Dockerfile`**
 
 ```Dockerfile
 # Specify a base image
