@@ -431,8 +431,11 @@ export default defineConfig({
   plugins: [reactRefresh()],
 });
 ```
+
 ## Docker Compose for Running Tests
-#### 
+
+📄 **`docker-compose.yml`**
+
 ```yml
 version: "3"
 services:
@@ -452,5 +455,29 @@ services:
     volumes:
       - /app/node_modules
       - .:/app
-    command: ["npm","run","test"]
+    command: ["npm", "run", "test"]
+```
+
+## Implement Muti-Step Builds
+
+📄 **`Dockerfile`**
+
+```Dockerfile
+# STEP 1
+FROM node:alpine as builder
+WORKDIR '/app'
+COPY package.json .
+RUN npm install
+COPY . .
+RUN npm run build
+
+# STEP 2
+FROM nginx
+COPY --from=builder /app/dist /usr/share/nginx/html
+```
+
+Run nginx
+
+```sh
+docker run -p 3000:80 <image_id>
 ```
