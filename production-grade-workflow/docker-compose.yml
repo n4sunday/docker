@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   node-app:
     build:
@@ -9,3 +9,11 @@ services:
     volumes:
       - /app/node_modules
       - .:/app
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm","run","test"]

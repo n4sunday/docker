@@ -379,6 +379,7 @@ docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app <image_id>
 ```
 
 use docker compose
+
 📄 **`Dockerfile.dev`**
 
 ```Dockerfile
@@ -410,22 +411,46 @@ services:
       - /app/node_modules
       - .:/app
 ```
+
 vite project config `usePolling: true`
+
 📄 **`vite.config.js`**
 
 ```js
-import { defineConfig } from 'vite'
-import reactRefresh from '@vitejs/plugin-react-refresh'
+import { defineConfig } from "vite";
+import reactRefresh from "@vitejs/plugin-react-refresh";
 
 export default defineConfig({
   server: {
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     port: 3000,
     watch: {
-      usePolling: true
-    }
+      usePolling: true,
+    },
   },
-  plugins: [reactRefresh()]
-})
-
+  plugins: [reactRefresh()],
+});
+```
+## Docker Compose for Running Tests
+#### 
+```yml
+version: "3"
+services:
+  node-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm","run","test"]
 ```
