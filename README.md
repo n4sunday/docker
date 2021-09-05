@@ -2,61 +2,61 @@
 
 ## 🚀 Basic Command
 
-#### Create and Running a Container from as Image
+Create and Running a Container from as Image
 
 ```sh
 docker run <image name>
 ```
 
-#### List all running containers
+List all running containers
 
 ```sh
 docker ps
 ```
 
-#### Create a Container
+Create a Container
 
 ```sh
 docker create <image name>
 ```
 
-#### Start a Container
+Start a Container
 
 ```sh
 docker start <container id>
 ```
 
-#### Stop All
+Stop All
 
 ```sh
 docker system prune
 ```
 
-#### Get logs from a container
+Get logs from a container
 
 ```sh
 docker logs <container id>
 ```
 
-#### Stop container
+Stop container
 
 ```sh
 docker stop <container id>
 ```
 
-#### Kill container
+Kill container
 
 ```sh
 docker kill <container id>
 ```
 
-#### Execute an additional command in a container
+Execute an additional command in a container
 
 ```sh
 docker exec -it <container id> <command>
 ```
 
-Command
+**Command**
 
 - `bash`
 - `powershell`
@@ -352,17 +352,80 @@ default **`no`**
 | `on-failure` | Only restart if the container stops with an error code |
 | `unless-stopped` | Always restart unless we (the developers) forcibly stop it |
 
-📄 **`Dockerfile`**
+📄 **`docker-compose.yml`**
 
 ```yml
-version: '3'
+version: "3"
 services:
   redis-server:
-    image: 'redis'
+    image: "redis"
   node-app:
     restart: always
     build: .
     ports:
       - "3000:3000"
+```
+
+## 🚀 Creating a Production Grade Workflow
+
+📁 `production-grade-workflow`
+
+#### Volumes
+
+use docker
+
+```sh
+docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app <image_id>
+```
+
+use docker compose
+📄 **`Dockerfile.dev`**
+
+```Dockerfile
+FROM node:alpine
+
+WORKDIR /app
+
+COPY package.json .
+RUN npm install
+
+COPY . .
+
+CMD ["npm","run","dev"]
+
+```
+
+📄 **`docker-compose.yml`**
+
+```yml
+version: "3"
+services:
+  node-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+```
+vite project config `usePolling: true`
+📄 **`vite.config.js`**
+
+```js
+import { defineConfig } from 'vite'
+import reactRefresh from '@vitejs/plugin-react-refresh'
+
+export default defineConfig({
+  server: {
+    host: '0.0.0.0',
+    port: 3000,
+    watch: {
+      usePolling: true
+    }
+  },
+  plugins: [reactRefresh()]
+})
 
 ```
