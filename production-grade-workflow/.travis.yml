@@ -1,0 +1,10 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t n4sunday/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run n4sunday/docker-react npm run test -- --coverage
+  

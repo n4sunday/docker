@@ -432,7 +432,7 @@ export default defineConfig({
 });
 ```
 
-## Docker Compose for Running Tests
+## 🚀 Docker Compose for Running Tests
 
 📄 **`docker-compose.yml`**
 
@@ -458,7 +458,7 @@ services:
     command: ["npm", "run", "test"]
 ```
 
-## Implement Muti-Step Builds
+## 🚀 Implement Muti-Step Builds
 
 📄 **`Dockerfile`**
 
@@ -480,4 +480,20 @@ Run nginx
 
 ```sh
 docker run -p 3000:80 <image_id>
+```
+
+## 🚀 Travis
+
+📄 **`.travis.yml`**
+
+```yml
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t n4sunday/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run n4sunday/docker-react npm run test -- --coverage
 ```
