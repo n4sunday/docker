@@ -497,3 +497,23 @@ before_install:
 script:
   - docker run n4sunday/docker-react npm run test -- --coverage
 ```
+
+## 🚀 Kubernetes (K8S)
+
+#### 🔥 What is Kubernetes?
+
+System for running many different containers over multiple different machines
+
+#### 🔥 Why use Kubernetes?
+
+When you need to run many different containers with different images
+
+`install kubectl`
+`install minikube`
+
+```sh
+minikube start
+```
+```sh
+minikube status
+```
