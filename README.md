@@ -514,6 +514,73 @@ When you need to run many different containers with different images
 ```sh
 minikube start
 ```
+
 ```sh
 minikube status
+```
+
+## 🚀 NGINX
+
+📁 `production-grade-workflow`
+
+#### 🔥 Web Server
+
+📄 **`Dockerfile`**
+
+```Dockerfile
+# STEP 1
+FROM node:alpine as builder
+WORKDIR '/app'
+COPY package.json .
+RUN npm install
+COPY . .
+RUN npm run build
+
+# STEP 2
+FROM nginx
+COPY --from=builder /app/dist /usr/share/nginx/html
+```
+
+📄 **`docker-compose.yml`**
+
+```yml
+version: "3"
+services:
+  front-app:
+    build: .
+    ports:
+      - "3000:80"
+```
+
+#### 🔥 Reverse proxy
+📄 **`Dockerfile`**
+```Dockerfile
+FROM node:alpine as builder
+WORKDIR '/app'
+COPY package.json .
+RUN npm install
+COPY . .
+RUN npm run build
+
+RUN npm install -g serve
+CMD ["serve", "-p", "5000", "-s", "./dist"]
+```
+
+📄 **`docker-compose.yml`**
+
+```yml
+version: "3"
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+  front-end:
+    build: .
+    ports:
+      - "3000:5000"
 ```
